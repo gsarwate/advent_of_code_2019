@@ -8,6 +8,14 @@ defmodule AOC.Day6 do
     count
   end
 
+  def part2(input) do
+    input
+    |> build_digraph()
+    |> :digraph.get_short_path("YOU", "SAN")
+    |> length()
+    |> Kernel.-(3)
+  end
+
   defp input_map(input) do
     input
     |> Enum.reduce(%{}, fn [k | v], acc ->
@@ -38,5 +46,17 @@ defmodule AOC.Day6 do
         end
       end
     )
+  end
+
+  defp build_digraph(input) do
+    input
+    |> Enum.reduce(:digraph.new(), fn [from, to], dg ->
+      :digraph.add_vertex(dg, from)
+      :digraph.add_vertex(dg, to)
+      :digraph.add_edge(dg, from, to)
+      :digraph.add_edge(dg, to, from)
+
+      dg
+    end)
   end
 end
