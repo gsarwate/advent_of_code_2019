@@ -10,7 +10,7 @@ defmodule AOC.Day6Test do
 
   test "solution day 6 part 1" do
     input = parse_input("test/input/day6_input")
-    assert Day6.part1(input) == 119831
+    assert Day6.part1(input) == 119_831
   end
 
   test "Solution day 6 part 2 example" do
@@ -21,6 +21,16 @@ defmodule AOC.Day6Test do
   test "Solution day 6 part 2" do
     input = parse_input("test/input/day6_input")
     assert Day6.part2(input) == 322
+  end
+
+  test "Solution day 6 part 2 alt example" do
+    input = parse_input("test/input/day6_example_pt2")
+    assert Day6.part2_alt(input) == 4
+  end
+
+  test "Solution day 6 part 2 alt" do
+    input = parse_input("test/input/day6_input")
+    assert Day6.part2_alt(input) == 322
   end
 
   defp parse_input(path) do

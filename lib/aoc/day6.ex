@@ -16,6 +16,32 @@ defmodule AOC.Day6 do
     |> Kernel.-(3)
   end
 
+  def part2_alt(input) do
+    in_map = input |> input_map_reverse()
+
+    paths =
+      Enum.reduce(in_map, %{}, fn {k, _v}, acc ->
+        Map.put(acc, k, build(in_map, k, []))
+      end)
+
+    you_path = Map.get(paths, "YOU")
+    san_path = Map.get(paths, "SAN")
+
+    ((you_path -- san_path) ++ (san_path -- you_path))
+    |> length()
+  end
+
+  defp build(_inp, k, list) when k == "COM", do: list
+
+  defp build(inp, k, list) do
+    v = Map.get(inp, k)
+    build(inp, v, [v | list])
+  end
+
+  defp input_map_reverse(input) do
+    input |> Enum.reduce(%{}, fn [k | [v]], acc -> Map.put(acc, v, k) end)
+  end
+
   defp input_map(input) do
     input
     |> Enum.reduce(%{}, fn [k | v], acc ->
